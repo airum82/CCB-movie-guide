@@ -13,11 +13,11 @@ class App extends Component {
       top_rated: [],
       searchTerms: ''
     }
-    this.searchMovies = this.searchMovies.bind(this);
+    this.grabSearchTerms = this.grabSearchTerms.bind(this);
     this.getNewCategory = this.getNewCategory.bind(this);
   }
 
-  searchMovies(e) {
+  grabSearchTerms(e) {
     this.setState({
       searchTerms: e.target.value
     })
@@ -41,7 +41,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header searchMovies={this.searchMovies} getNewCategory={this.getNewCategory}/>
+        <Header grabSearchTerms={this.grabSearchTerms} getNewCategory={this.getNewCategory}/>
         <Route path='/:category' render={({ match }) => {
           const category = match.params.category;
           return (
