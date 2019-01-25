@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = props => {
+const Header = ({ searchMovies }) => {
   return (
     <header>
       <div>
@@ -9,7 +9,7 @@ const Header = props => {
         <p>Top Rated</p>
       </div>
       <div>
-        <input type="text" name="search"/>
+        <input type="text" name="search" onChange={searchMovies}/>
       </div>
     </header>
   )

@@ -9,13 +9,16 @@ class App extends Component {
     this.state = {
       nowPlaying: [],
       popular: [],
-      topRated: []
+      topRated: [],
+      searchTerms: ''
     }
     this.searchMovies = this.searchMovies.bind(this);
   }
 
-  searchMovies(input) {
-
+  searchMovies(e) {
+    this.setState({
+      searchTerms: e.target.value
+    })
   }
 
   componentDidMount() {
@@ -26,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header searchMovies={this.searchMovies}/>
         <MovieContainer movies={this.state.nowPlaying} />
       </div>
     )
