@@ -3,7 +3,7 @@ import React from 'react';
 const Movie = props => {
   return (
     <article>
-      I'm a movie
+      <h2>{props.movie.title}</h2>
     </article>
   )
 }

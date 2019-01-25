@@ -1,9 +1,12 @@
 import React from 'react';
+import Movie from '../movie/Movie';
 
-const MovieContainer = props => {
+const MovieContainer = ({ movies }) => {
   return (
     <section>
-      Here are movies
+      { movies.map((movie, i) => (
+          <Movie key={i} movie={movie}/>
+      )) }
     </section>
   )
 }
