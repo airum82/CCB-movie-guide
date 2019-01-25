@@ -3,7 +3,14 @@ import React from 'react';
 const Header = props => {
   return (
     <header>
-      I'm a header
+      <div>
+        <p>Now Playing</p>
+        <p>Popular</p>
+        <p>Top Rated</p>
+      </div>
+      <div>
+        <input type="text" name="search"/>
+      </div>
     </header>
   )
 }
