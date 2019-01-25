@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <MovieContainer />
+        <MovieContainer movies={this.state.nowPlaying} />
       </div>
     )
   }
