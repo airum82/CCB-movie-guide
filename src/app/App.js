@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../header/Header';
+import MovieContainer from '../movies-container/MoviesContainer';
 import * as API from '../APImethods';
 
 class App extends Component {
@@ -21,7 +22,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        Hello World!
+        <MovieContainer />
       </div>
     )
   }
