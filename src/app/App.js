@@ -11,6 +11,11 @@ class App extends Component {
       popular: [],
       topRated: []
     }
+    this.searchMovies = this.searchMovies.bind(this);
+  }
+
+  searchMovies(input) {
+
   }
 
   componentDidMount() {
