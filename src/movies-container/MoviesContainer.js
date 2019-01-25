@@ -1,7 +1,7 @@
 import React from 'react';
 import Movie from '../movie/Movie';
 
-const MovieContainer = ({ movies }) => {
+const MovieContainer = ({ movies, match }) => {
   return (
     <section>
       { movies.map((movie, i) => (
