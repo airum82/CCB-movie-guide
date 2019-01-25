@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    API.getNowPlaying()
+    API.getMoviesByCategory('now_playing')
       .then(movies => this.setState({ nowPlaying: movies.results }))
   }
 
