@@ -12,11 +12,13 @@ class App extends Component {
       popular: [],
       top_rated: [],
       searchTerms: '',
-      searchResults: []
+      searchResults: [],
+      movie: []
     }
     this.grabSearchTerms = this.grabSearchTerms.bind(this);
     this.getNewCategory = this.getNewCategory.bind(this);
     this.searchMovies = this.searchMovies.bind(this);
+    this.viewMovie = this.viewMovie.bind(this);
   }
 
   grabSearchTerms(e) {
@@ -64,6 +66,15 @@ class App extends Component {
     }
   }
 
+  viewMovie(id) {
+    API.getMovieDetails(id)
+      .then(movie => {
+        this.setState({ movie: [movie] });
+        return movie;
+      })
+      .then(movie => this.props.history.push(`/movie/${movie.id}`))
+  }
+
   componentDidMount() {
     API.getMoviesByCategory('now_playing')
       .then(movies => this.setState({ now_playing: movies.results }))
@@ -81,7 +92,10 @@ class App extends Component {
         <Route path='/:category' render={({ match }) => {
           const category = match.params.category;
           return (
-            <MovieContainer movies={this.state[category]}/>
+            <MovieContainer 
+              movies={this.state[category]}
+              viewMovie={this.viewMovie}
+            />
           )
         }} />
       </div>

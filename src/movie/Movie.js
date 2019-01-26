@@ -2,9 +2,11 @@ import React from 'react';
 
 const Movie = props => {
   return (
-    <article>
-      <h2>{props.movie.title}</h2>
-    </article>
+      <article onClick={() => {
+        props.viewMovie(props.movie.id)
+      }}>
+        <h2>{props.movie.title}</h2>
+      </article>
   )
 }
 
