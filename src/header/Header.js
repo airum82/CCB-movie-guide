@@ -10,11 +10,6 @@ const Header = ({ grabSearchTerms, getNewCategory, searchMovies }) => {
         <NavLink to='/top_rated' id="top_rated">Top Rated</NavLink>
       </div>
       <form onSubmit={searchMovies}>
-        <select>
-          <option value="title">title</option>
-          <option value='genre'>genre</option>
-          <option value='description'>description</option>
-        </select>
         <input type="text" name="search" onChange={grabSearchTerms}/>
         <button>search</button>
       </form>
