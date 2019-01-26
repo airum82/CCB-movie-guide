@@ -27,37 +27,33 @@ class App extends Component {
 
   searchMovies() {
     event.preventDefault();
-    ['popular', 'top_rated'].forEach((category, i, cat) => {
+    ['popular', 'top_rated'].forEach((category, i, cats) => {
       if (!this.state[category].length) {
         API.getMoviesByCategory(category)
           .then(movies => this.setState({ [category]: movies.results }))
           .then(() => {
-            if(i === cat.length - 1) {
-              const { now_playing, popular, top_rated } = this.state;
-              const results = [...now_playing, ...popular, ...top_rated].reduce((results, movie) => {
-                if (movie.title.toLowerCase().includes(this.state.searchTerms)) {
-                  const duplicate = results.find(result => 
-                    result.title.toLowerCase() === movie.title.toLowerCase())
-                  if(!duplicate) results.push(movie);
-                }
-                return results;
-              }, [])
-              this.setState({ searchResults: results })
+            if(i === cats.length - 1) {
+              this.createResults();
             }
           }).then(() => this.props.history.push('/searchResults'))
-      } else if(i === cat.length - 1) {
-        const { now_playing, popular, top_rated } = this.state
-        const results = [...now_playing, ...popular, ...top_rated].reduce((results, movie) => {
-          if (movie.title.toLowerCase().includes(this.state.searchTerms)) {
-            const duplicate = results.find(result =>
-              result.title.toLowerCase() === movie.title.toLowerCase())
-            if (!duplicate) results.push(movie);
-          }
-          return results;
-        }, [])
-        this.setState({ searchResults: results })
+      } else if(i === cats.length - 1) {
+          this.createResults();
       }
     })
+    this.props.history.push('/searchResults')
+  }
+
+  createResults() {
+    const { now_playing, popular, top_rated } = this.state;
+    const results = [...now_playing, ...popular, ...top_rated].reduce((results, movie) => {
+      if (movie.title.toLowerCase().includes(this.state.searchTerms)) {
+        const duplicate = results.find(result =>
+          result.title.toLowerCase() === movie.title.toLowerCase())
+        if (!duplicate) results.push(movie);
+      }
+      return results;
+    }, [])
+    this.setState({ searchResults: results })
   }
 
   getNewCategory(e) {
