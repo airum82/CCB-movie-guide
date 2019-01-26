@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Header = ({ searchMovies, getNewCategory }) => {
+const Header = ({ grabSearchTerms, getNewCategory, searchMovies }) => {
   return (
     <header>
       <div onClick={getNewCategory}>
@@ -9,9 +9,10 @@ const Header = ({ searchMovies, getNewCategory }) => {
         <NavLink to='/popular' id="popular">Popular</NavLink>
         <NavLink to='/top_rated' id="top_rated">Top Rated</NavLink>
       </div>
-      <div>
-        <input type="text" name="search" onChange={searchMovies}/>
-      </div>
+      <form onSubmit={searchMovies}>
+        <input type="text" name="search" onChange={grabSearchTerms}/>
+        <button>search</button>
+      </form>
     </header>
   )
 }

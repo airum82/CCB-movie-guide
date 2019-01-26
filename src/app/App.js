@@ -11,25 +11,68 @@ class App extends Component {
       now_playing: [],
       popular: [],
       top_rated: [],
-      searchTerms: ''
+      searchTerms: '',
+      searchResults: [],
+      movie: []
     }
-    this.searchMovies = this.searchMovies.bind(this);
+    this.grabSearchTerms = this.grabSearchTerms.bind(this);
     this.getNewCategory = this.getNewCategory.bind(this);
+    this.searchMovies = this.searchMovies.bind(this);
+    this.viewMovie = this.viewMovie.bind(this);
   }
 
-  searchMovies(e) {
+  grabSearchTerms(e) {
     this.setState({
-      searchTerms: e.target.value
+      searchTerms: (e.target.value).toLowerCase()
     })
   }
 
+  searchMovies() {
+    event.preventDefault();
+    ['popular', 'top_rated'].forEach((category, i, cats) => {
+      if (!this.state[category].length) {
+        API.getMoviesByCategory(category)
+          .then(movies => this.setState({ [category]: movies.results }))
+          .then(() => {
+            if(i === cats.length - 1) {
+              this.createResults();
+            }
+          }).then(() => this.props.history.push('/searchResults'))
+      } else if(i === cats.length - 1) {
+          this.createResults();
+      }
+    })
+    this.props.history.push('/searchResults')
+  }
+
+  createResults() {
+    const { now_playing, popular, top_rated } = this.state;
+    const results = [...now_playing, ...popular, ...top_rated].reduce((results, movie) => {
+      if (movie.title.toLowerCase().includes(this.state.searchTerms)) {
+        const duplicate = results.find(result =>
+          result.title.toLowerCase() === movie.title.toLowerCase())
+        if (!duplicate) results.push(movie);
+      }
+      return results;
+    }, [])
+    this.setState({ searchResults: results })
+  }
+
   getNewCategory(e) {
-    console.log(e.target.id);
     const category = e.target.id;
     if(!this.state[category].length) {
       API.getMoviesByCategory(category)
         .then(movies => this.setState({ [category]: movies.results }))
     }
+  }
+
+  viewMovie(id) {
+    API.getMovieDetails(id)
+      .then(movie => {
+        this.setState({ movie: [movie] });
+        return movie;
+      })
+      .then(movie => this.props.history.push(`/movie/${movie.id}`))
   }
 
   componentDidMount() {
@@ -41,11 +84,18 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header searchMovies={this.searchMovies} getNewCategory={this.getNewCategory}/>
+        <Header 
+          grabSearchTerms={this.grabSearchTerms} 
+          getNewCategory={this.getNewCategory}
+          searchMovies={this.searchMovies}
+        />
         <Route path='/:category' render={({ match }) => {
           const category = match.params.category;
           return (
-            <MovieContainer movies={this.state[category]}/>
+            <MovieContainer 
+              movies={this.state[category]}
+              viewMovie={this.viewMovie}
+            />
           )
         }} />
       </div>
