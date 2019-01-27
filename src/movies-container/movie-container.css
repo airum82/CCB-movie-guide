@@ -4,4 +4,5 @@
   margin: 0 auto;
   justify-content: center;
   justify-items: center;
+  grid-gap: 15px 10px;
 }

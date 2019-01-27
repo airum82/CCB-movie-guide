@@ -1,0 +1,11 @@
+:root {
+  --color1: rgba(0, 78, 100, 1);
+  --color2: rgba(0, 165, 207, 1);
+  --color3: rgb(179, 231, 202);
+  --color4: rgba(37, 161, 142, 1);
+  --color5: rgba(122, 229, 130, 1);
+}
+
+body {
+  background-color: var(--color3);
+}
