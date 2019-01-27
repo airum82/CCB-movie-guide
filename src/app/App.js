@@ -3,6 +3,7 @@ import Header from '../header/Header';
 import MovieContainer from '../movies-container/MoviesContainer';
 import * as API from '../APImethods';
 import { Route, withRouter } from 'react-router-dom';
+import './App.css';
 
 class App extends Component {
   constructor() {

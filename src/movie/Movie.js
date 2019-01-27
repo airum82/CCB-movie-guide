@@ -1,8 +1,9 @@
 import React from 'react';
+import './Movie.css';
 
 const Movie = props => {
   return (
-      <article onClick={() => {
+      <article className='movie' onClick={() => {
         props.viewMovie(props.movie.id)
       }}>
         <h2>{props.movie.title}</h2>
