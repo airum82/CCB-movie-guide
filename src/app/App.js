@@ -3,6 +3,7 @@ import Header from '../header/Header';
 import MovieContainer from '../movies-container/MoviesContainer';
 import * as API from '../APImethods';
 import { Route, withRouter } from 'react-router-dom';
+import 'normalize.css';
 import './App.css';
 
 class App extends Component {
@@ -73,7 +74,11 @@ class App extends Component {
         this.setState({ movie: [movie] });
         return movie;
       })
-      .then(movie => this.props.history.push(`/movie/${movie.id}`))
+      .then(movie => {
+        if(this.props.location.pathname !== `/movie/${movie.id}`) {
+          this.props.history.push(`/movie/${movie.id}`)
+        }
+      })
   }
 
   componentDidMount() {

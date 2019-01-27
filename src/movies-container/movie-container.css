@@ -1,4 +1,7 @@
 .movie-container {
   display: grid;
   grid-template-columns: 22% 22% 22% 22%;
+  margin: 0 auto;
+  justify-content: center;
+  justify-items: center;
 }
