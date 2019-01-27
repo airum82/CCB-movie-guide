@@ -1,7 +1,7 @@
 import React from 'react';
 import Movie from '../movie/Movie';
 
-const MovieContainer = ({ movies, viewMovie }) => {
+const MovieContainer = ({ movies, viewMovie, location }) => {
   return (
     <section>
       { movies.map((movie, i) => (
@@ -9,6 +9,7 @@ const MovieContainer = ({ movies, viewMovie }) => {
             key={i} 
             movie={movie}
             viewMovie={viewMovie}
+            location={location}
           />
       )) }
     </section>

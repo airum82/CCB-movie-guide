@@ -95,6 +95,7 @@ class App extends Component {
             <MovieContainer 
               movies={this.state[category]}
               viewMovie={this.viewMovie}
+              location={this.props.location}
             />
           )
         }} />
