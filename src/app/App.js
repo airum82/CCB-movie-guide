@@ -21,6 +21,7 @@ class App extends Component {
     this.getNewCategory = this.getNewCategory.bind(this);
     this.searchMovies = this.searchMovies.bind(this);
     this.viewMovie = this.viewMovie.bind(this);
+    this.formatReleaseDate = this.formatReleaseDate.bind(this);
   }
 
   grabSearchTerms(e) {
@@ -81,6 +82,11 @@ class App extends Component {
       })
   }
 
+  formatReleaseDate(date) {
+    const dateArray = date.split('-');
+    return `${dateArray[1]}-${dateArray[2]}-${dateArray[0]}`
+  }
+
   componentDidMount() {
     API.getMoviesByCategory('now_playing')
       .then(movies => this.setState({ now_playing: movies.results }))
@@ -103,6 +109,7 @@ class App extends Component {
               movies={this.state[category]}
               viewMovie={this.viewMovie}
               location={this.props.location}
+              formatReleaseDate={this.formatReleaseDate}
             />
           )
         }} />

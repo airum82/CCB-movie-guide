@@ -22,3 +22,23 @@
   color: white;
   cursor: pointer;
 }
+
+.movie-single {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+}
+
+.movie-single h2 {
+  text-align: center;
+}
+
+.movie-single img {
+  display: block;
+  height: 80vh;
+  margin: 0 auto;
+}
+
+.movie-stats {
+  text-align: center;
+}
