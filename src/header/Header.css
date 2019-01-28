@@ -41,3 +41,32 @@
   border: none;
   background-color: var(--color3)
 }
+
+.current-category {
+  color: white;
+}
+
+@media only screen and (max-width: 682px) {
+  .header form,
+  .header-nav {
+    display: block;
+    text-align: center;
+  }
+
+  .header-nav,
+  .header form {
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  .header form {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2%;
+  }
+
+  .header-nav * {
+    display: inline;
+  }
+}

@@ -101,6 +101,7 @@ class App extends Component {
           grabSearchTerms={this.grabSearchTerms} 
           getNewCategory={this.getNewCategory}
           searchMovies={this.searchMovies}
+          location={this.props.location}
         />
         <Route path='/:category' render={({ match }) => {
           const category = match.params.category;

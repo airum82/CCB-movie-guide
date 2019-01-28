@@ -14,7 +14,7 @@ const Movie = props => {
         <img src={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`} />
         { singleView ?
           <div>
-            <p>{props.movie.overview}</p>
+            <p className="movie-description">{props.movie.overview}</p>
             <p className="movie-stats">Release Date: {props.formatReleaseDate(props.movie.release_date)}</p>
             <p className="movie-stats">Voter Average: {props.movie.vote_average}</p>
           </div> : ''
