@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
-const Header = ({ grabSearchTerms, getNewCategory, searchMovies, location }) => {
+const Header = ({ grabSearchTerms, getNewCategory, searchMovies, location, searchTerms }) => {
   return (
     <header className="header">
       <div onClick={getNewCategory} className="header-nav">
@@ -11,7 +11,7 @@ const Header = ({ grabSearchTerms, getNewCategory, searchMovies, location }) => 
         <NavLink to='/top_rated' id="top_rated" className={location.pathname === '/top_rated' ? 'current-category' : ''}>Top Rated</NavLink>
       </div>
       <form onSubmit={searchMovies}>
-        <input type="text" name="search" onChange={grabSearchTerms}/>
+        <input value={searchTerms} type="text" name="search" onChange={grabSearchTerms}/>
         <button>search</button>
       </form>
     </header>

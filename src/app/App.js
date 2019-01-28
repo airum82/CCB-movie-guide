@@ -58,7 +58,10 @@ class App extends Component {
       }
       return results;
     }, [])
-    this.setState({ searchResults: results })
+    this.setState({ 
+      searchResults: results,
+      searchTerms: '' 
+    })
   }
 
   getNewCategory(e) {
@@ -105,6 +108,7 @@ class App extends Component {
           getNewCategory={this.getNewCategory}
           searchMovies={this.searchMovies}
           location={this.props.location}
+          searchTerms={this.state.searchTerms}
         />
         <Route path='/:category' render={({ match }) => {
           const category = match.params.category;
