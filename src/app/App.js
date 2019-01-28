@@ -3,6 +3,8 @@ import Header from '../header/Header';
 import MovieContainer from '../movies-container/MoviesContainer';
 import * as API from '../APImethods';
 import { Route, withRouter } from 'react-router-dom';
+import 'normalize.css';
+import './App.css';
 
 class App extends Component {
   constructor() {
@@ -19,6 +21,7 @@ class App extends Component {
     this.getNewCategory = this.getNewCategory.bind(this);
     this.searchMovies = this.searchMovies.bind(this);
     this.viewMovie = this.viewMovie.bind(this);
+    this.formatReleaseDate = this.formatReleaseDate.bind(this);
   }
 
   grabSearchTerms(e) {
@@ -55,7 +58,10 @@ class App extends Component {
       }
       return results;
     }, [])
-    this.setState({ searchResults: results })
+    this.setState({ 
+      searchResults: results,
+      searchTerms: '' 
+    })
   }
 
   getNewCategory(e) {
@@ -72,7 +78,16 @@ class App extends Component {
         this.setState({ movie: [movie] });
         return movie;
       })
-      .then(movie => this.props.history.push(`/movie/${movie.id}`))
+      .then(movie => {
+        if(this.props.location.pathname !== `/movie/${movie.id}`) {
+          this.props.history.push(`/movie/${movie.id}`)
+        }
+      })
+  }
+
+  formatReleaseDate(date) {
+    const dateArray = date.split('-');
+    return `${dateArray[1]}-${dateArray[2]}-${dateArray[0]}`
   }
 
   componentDidMount() {
@@ -84,10 +99,16 @@ class App extends Component {
   render() {
     return (
       <div>
+        <h1 
+          className="title"
+          onClick={() => this.props.history.push('/now_playing')}
+        >Ultimate Movie Guide</h1>
         <Header 
           grabSearchTerms={this.grabSearchTerms} 
           getNewCategory={this.getNewCategory}
           searchMovies={this.searchMovies}
+          location={this.props.location}
+          searchTerms={this.state.searchTerms}
         />
         <Route path='/:category' render={({ match }) => {
           const category = match.params.category;
@@ -95,6 +116,8 @@ class App extends Component {
             <MovieContainer 
               movies={this.state[category]}
               viewMovie={this.viewMovie}
+              location={this.props.location}
+              formatReleaseDate={this.formatReleaseDate}
             />
           )
         }} />

@@ -1,0 +1,68 @@
+.movie {
+  background-color: var(--color4);
+  height: 100%;
+  width: 100%;
+}
+
+.movie img {
+  height: 50vh;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 4%;
+}
+
+.movie h2 {
+  text-align: center;
+  font-size: 100%;
+  height: 7vh;
+  line-height: 3;
+}
+
+.movie:hover {
+  color: white;
+  cursor: pointer;
+}
+
+
+.movie-single h2 {
+  text-align: center;
+}
+
+.movie-single img {
+  display: block;
+  height: 90vh;
+  margin: 2% auto;
+}
+
+.movie-stats {
+  text-align: center;
+}
+
+.movie-description {
+  width: 65%;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 850px) {
+  .movie img {
+    height: 40vh;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .movie {
+    width: 90%;
+    margin: 0 auto;
+    height: 83%;
+  }
+
+  .movie img {
+    height: 70vh;
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .movie-description {
+    width: 90%;
+  }
+}
