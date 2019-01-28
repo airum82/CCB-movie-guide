@@ -96,7 +96,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 className="title">Ultimate Movie Guide</h1>
+        <h1 
+          className="title"
+          onClick={() => this.props.history.push('/now_playing')}
+        >Ultimate Movie Guide</h1>
         <Header 
           grabSearchTerms={this.grabSearchTerms} 
           getNewCategory={this.getNewCategory}

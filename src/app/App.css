@@ -17,3 +17,7 @@ body {
 .title {
   text-align: center;
 }
+
+h1:hover {
+  cursor: pointer;
+}

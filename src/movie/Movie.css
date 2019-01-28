@@ -31,7 +31,7 @@
 .movie-single img {
   display: block;
   height: 90vh;
-  margin: 0 auto;
+  margin: 2% auto;
 }
 
 .movie-stats {
@@ -46,5 +46,23 @@
 @media only screen and (max-width: 850px) {
   .movie img {
     height: 40vh;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .movie {
+    width: 90%;
+    margin: 0 auto;
+    height: 83%;
+  }
+
+  .movie img {
+    height: 70vh;
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .movie-description {
+    width: 90%;
   }
 }
