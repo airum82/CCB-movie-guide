@@ -4,7 +4,7 @@ import './movie-container.css'
 
 const MovieContainer = ({ movies, viewMovie, location, formatReleaseDate }) => {
   return (
-    <section className={ movies.length === 1 ? 'movie-container-single' : 'movie-container'}>
+    <section className={ location.pathname.includes('movie') ? 'movie-container-single' : 'movie-container'}>
       { movies.map((movie, i) => (
           <Movie 
             key={i} 
