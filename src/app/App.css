@@ -9,3 +9,7 @@
 body {
   background-color: var(--color3);
 }
+
+.title {
+  text-align: center;
+}

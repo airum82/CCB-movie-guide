@@ -17,3 +17,8 @@
   height: 7vh;
   line-height: 3;
 }
+
+.movie:hover {
+  color: white;
+  cursor: pointer;
+}
