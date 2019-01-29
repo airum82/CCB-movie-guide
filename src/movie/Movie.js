@@ -1,27 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Movie.css';
 
-const Movie = props => {
-  const singleView = location.pathname === `/movie/${props.movie.id}`;
+const Movie = ({ movie, formatReleaseDate, viewMovie, location }) => {
+  const singleView = location.pathname === `/movie/${movie.id}`;
   return (
       <article 
         className={ singleView ? 'movie-single' : 'movie'} 
         onClick={() => {
-        props.viewMovie(props.movie.id)
+          viewMovie(movie.id)
         }}
       >
-        <h2>{props.movie.title}</h2>
-        <img src={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`} />
+        <h2>{movie.title}</h2>
+        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
         { singleView ?
           <div>
-            <p className="movie-description">{props.movie.overview}</p>
-            <p className="movie-stats">Release Date: {props.formatReleaseDate(props.movie.release_date)}</p>
-            <p className="movie-stats">Voter Average: {props.movie.vote_average}</p>
+            <p className="movie-description">{movie.overview}</p>
+            <p className="movie-stats">Release Date: {formatReleaseDate(movie.release_date)}</p>
+            <p className="movie-stats">Voter Average: {movie.vote_average}</p>
           </div> : ''
         
            }
       </article>
   )
+}
+
+Movie.propTypes = {
+  movie: PropTypes.object,
+  formatReleaseDate: PropTypes.func,
+  viewMovie: PropTypes.func,
+  location: PropTypes.object
 }
 
 export default Movie;

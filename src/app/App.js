@@ -79,7 +79,7 @@ class App extends Component {
     if(!this.state[category].length) {
       API.getMoviesByCategory(category)
         .then(movies => {
-          const sortedMovies = this.sortedMovies(movies)
+          const sortedMovies = this.sortMovies(movies)
           this.setState({ [category]: sortedMovies })
         
         })
