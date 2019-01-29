@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
-const Header = ({ grabSearchTerms, getNewCategory, searchMovies, location, searchTerms }) => {
+export const Header = ({ grabSearchTerms, getNewCategory, searchMovies, location, searchTerms }) => {
   return (
     <header className="header">
       <div onClick={getNewCategory} className="header-nav">

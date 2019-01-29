@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders as expected 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="header-nav"
+    onClick={[MockFunction]}
+  >
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      className=""
+      id="now_playing"
+      to="/now_playing"
+    >
+      Now Playing
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      className="nav-spacing"
+      id="popular"
+      to="/popular"
+    >
+      Popular
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      className=""
+      id="top_rated"
+      to="/top_rated"
+    >
+      Top Rated
+    </NavLink>
+  </div>
+  <form
+    className="header-search"
+    onSubmit={[MockFunction]}
+  >
+    <input
+      name="search"
+      onChange={[MockFunction]}
+      type="text"
+      value={[MockFunction]}
+    />
+    <button>
+      search
+    </button>
+  </form>
+</header>
+`;
+
+exports[`Header renders as expected when pathname is /now_playing 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="header-nav"
+    onClick={[MockFunction]}
+  >
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      className=""
+      id="now_playing"
+      to="/now_playing"
+    >
+      Now Playing
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      className="nav-spacing"
+      id="popular"
+      to="/popular"
+    >
+      Popular
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      className=""
+      id="top_rated"
+      to="/top_rated"
+    >
+      Top Rated
+    </NavLink>
+  </div>
+  <form
+    className="header-search"
+    onSubmit={[MockFunction]}
+  >
+    <input
+      name="search"
+      onChange={[MockFunction]}
+      type="text"
+      value={[MockFunction]}
+    />
+    <button>
+      search
+    </button>
+  </form>
+</header>
+`;
