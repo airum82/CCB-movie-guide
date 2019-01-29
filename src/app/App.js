@@ -40,7 +40,7 @@ class App extends Component {
             if(i === cats.length - 1) {
               this.createResults();
             }
-          }).then(() => this.props.history.push('/searchResults'))
+          }).catch(err => console.log(err.message))
       } else if(i === cats.length - 1) {
           this.createResults();
       }
@@ -64,11 +64,26 @@ class App extends Component {
     })
   }
 
+  sortMovies(movies) {
+    return movies.results.sort((a, b) => {
+      const aTitle = a.title.toUpperCase();
+      const bTitle = b.title.toUpperCase();
+      if (aTitle > bTitle) return 1;
+      if (aTitle < bTitle) return -1;
+      return 0;
+    });
+  }
+
   getNewCategory(e) {
     const category = e.target.id;
     if(!this.state[category].length) {
       API.getMoviesByCategory(category)
-        .then(movies => this.setState({ [category]: movies.results }))
+        .then(movies => {
+          const sortedMovies = this.sortedMovies(movies)
+          this.setState({ [category]: sortedMovies })
+        
+        })
+        .catch(err => console.log(err.message))
     }
   }
 
@@ -83,6 +98,7 @@ class App extends Component {
           this.props.history.push(`/movie/${movie.id}`)
         }
       })
+      .catch(err => console.log(err.message))
   }
 
   formatReleaseDate(date) {
@@ -92,8 +108,12 @@ class App extends Component {
 
   componentDidMount() {
     API.getMoviesByCategory('now_playing')
-      .then(movies => this.setState({ now_playing: movies.results }))
+      .then(movies => {
+        const sortedMovies = this.sortMovies(movies)
+        this.setState({ now_playing: sortedMovies })
+      })
       .then(() => this.props.history.push('/now_playing'))
+      .catch(err => console.log(err.message))
   }
 
   render() {
