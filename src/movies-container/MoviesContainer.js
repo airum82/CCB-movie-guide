@@ -1,5 +1,6 @@
 import React from 'react';
 import Movie from '../movie/Movie';
+import PropTypes from 'prop-types';
 import './movie-container.css'
 
 const MovieContainer = ({ movies, viewMovie, location, formatReleaseDate }) => {
@@ -16,6 +17,13 @@ const MovieContainer = ({ movies, viewMovie, location, formatReleaseDate }) => {
       )) }
     </section>
   )
+}
+
+MovieContainer.propTypes = {
+  movies: PropTypes.array,
+  viewMovie: PropTypes.func,
+  location: PropTypes.object,
+  formatReleaseDate: PropTypes.func
 }
 
 export default MovieContainer;

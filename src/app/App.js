@@ -3,6 +3,7 @@ import Header from '../header/Header';
 import MovieContainer from '../movies-container/MoviesContainer';
 import * as API from '../APImethods';
 import { Route, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import 'normalize.css';
 import './App.css';
 
@@ -144,6 +145,12 @@ class App extends Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  location: PropTypes.object,
+  history: PropTypes.object,
+  match: PropTypes.object
 }
 
 export default withRouter(App);
