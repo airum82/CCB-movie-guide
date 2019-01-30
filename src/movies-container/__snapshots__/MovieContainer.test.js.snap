@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieContainer should match snapshot upon render 1`] = `
+<section
+  className="movie-container"
+>
+  <Movie
+    formatReleaseDate={[MockFunction]}
+    key="0"
+    location={
+      Object {
+        "pathname": "/now_playing",
+      }
+    }
+    movie={
+      Object {
+        "title": "fake1",
+      }
+    }
+    viewMovie={[MockFunction]}
+  />
+  <Movie
+    formatReleaseDate={[MockFunction]}
+    key="1"
+    location={
+      Object {
+        "pathname": "/now_playing",
+      }
+    }
+    movie={
+      Object {
+        "title": "fake2",
+      }
+    }
+    viewMovie={[MockFunction]}
+  />
+</section>
+`;
