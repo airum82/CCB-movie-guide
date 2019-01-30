@@ -14,7 +14,7 @@ const Movie = ({ movie, formatReleaseDate, viewMovie, location }) => {
         <h2>{movie.title}</h2>
         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
         { singleView ?
-          <div>
+          <div className="movie-details">
             <p className="movie-description">{movie.overview}</p>
             <p className="movie-stats">Release Date: {formatReleaseDate(movie.release_date)}</p>
             <p className="movie-stats">Voter Average: {movie.vote_average}</p>
