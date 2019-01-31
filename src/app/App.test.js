@@ -44,7 +44,11 @@ describe('App', () => {
       preventDefault: jest.fn()
     }
     wrapper.instance().searchMovies(mockEvent);
-    expect(API.getMoviesByCategory).toHaveBeenCalled();
+    Promise.resolve({}).then(() => {
+      expect(API.getMoviesByCategory).toHaveBeenCalled()
+    }).then(() => {
+      expect(wrapper.instance().createResults).toHaveBeenCalled()
+    })
   })
 
   it('createResults should setState with results that match search terms', () => {
