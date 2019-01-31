@@ -1,11 +1,17 @@
 import React from 'react';
 import { App } from './App';
 import { shallow } from 'enzyme';
+import * as API from '../APImethods';
 
 describe('App', () => {
   let wrapper;
+  const mockProps = {
+    history: {
+      push: jest.fn()
+    }
+  }
   beforeEach(() => {
-    wrapper = shallow(<App />, {
+    wrapper = shallow(<App {...mockProps} />, {
       disableLifecycleMethods: true
     })
   })
@@ -26,7 +32,17 @@ describe('App', () => {
     expect(wrapper.state('searchTerms')).toEqual(expectedResult);
   })
 
-  //do searchMovies later
+  it('searchMovies should call API.getMoviesByCategory and createResults', () => {
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve({})
+    }));
+    wrapper.instance().createResults = jest.fn();
+    const mockEvent = {
+      preventDefault: jest.fn()
+    }
+    wrapper.instance().searchMovies(mockEvent);
+    expect(API.getMoviesByCategory).toHaveBeenCalled();
+  })
 
   it('createResults should setState with results that match search terms', () => {
     wrapper.instance().setState({
@@ -49,7 +65,19 @@ describe('App', () => {
   })
 
   //test get new category later
-
+  it('get new category should call API.getMoviesByCategory', () => {
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve({})
+    }));
+    const mockEvent = {
+      target: {
+        id: 'popular'
+      }
+    }
+    wrapper.instance().getNewCategory(mockEvent)
+    expect(API.getMoviesByCategory).toHaveBeenCalledWith(mockEvent.target.id)
+  })
+  
   //test viewMovie later
 
   it('formatReleaseDate should format the imdb date to american standards', () => {

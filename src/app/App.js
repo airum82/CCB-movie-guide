@@ -31,7 +31,7 @@ export class App extends Component {
     })
   }
 
-  searchMovies() {
+  searchMovies(event) {
     event.preventDefault();
     ['popular', 'top_rated'].forEach((category, i, cats) => {
       if (!this.state[category].length) {
