@@ -51,6 +51,37 @@ describe('App', () => {
     })
   })
 
+  it('searchMovies should not call API.getMoviesByCategory if all categories are fetched', () => {
+    wrapper.instance().setState({
+      now_playing: [{ title: 'now' }, { title: 'playing' }],
+      popular: [{ title: 'super' }, { title: 'popular' }],
+      top_rated: [{ title: 'top' }, { title: 'rated' }]
+    })
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      results: [{ title: 'first' }, { title: 'second' }]
+    }));
+    const mockEvent = {
+      preventDefault: jest.fn()
+    }
+    wrapper.instance().searchMovies(mockEvent);
+    expect(API.getMoviesByCategory).not.toHaveBeenCalled();
+  })
+
+  it('searchMovies should call history.push with correct params', () => {
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      results: [{ title: 'first' }, { title: 'second' }]
+    }));
+    const mockEvent = {
+      preventDefault: jest.fn()
+    };
+    Promise.resolve({})
+      .then(() => wrapper.instance().searchMovies(mockEvent))
+      .then(() => {
+        expect(mockProps.history.push).toHaveBeenCalledWith('/searchResults');
+      })
+      .catch(err => console.log(err.message));
+  })
+
   it('createResults should setState with results that match search terms', () => {
     wrapper.instance().setState({
       now_playing: [{ title: 'Robin' }, { title: 'Batman'}, { title: 'Robinson'}],
@@ -72,7 +103,7 @@ describe('App', () => {
   })
 
   //test get new category later
-  it('get new category should call API.getMoviesByCategory', () => {
+  it('getNewCategory should call API.getMoviesByCategory', () => {
     API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
       results: []
     }));
@@ -83,6 +114,63 @@ describe('App', () => {
     }
     wrapper.instance().getNewCategory(mockEvent)
     expect(API.getMoviesByCategory).toHaveBeenCalledWith(mockEvent.target.id)
+  })
+
+  it('getNewCategory should call sortMovies if new category is fetched then set state with sortedmovies', () => {
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      results: [{ title: 'uno' }, { title: 'dos' }]
+    }));
+    const mockEvent = {
+      target: {
+        id: 'popular'
+      }
+    };
+    wrapper.instance().setState = jest.fn();
+    wrapper.instance().sortMovies = jest.fn().mockImplementation(() => {
+      return [{ title: 'uno' }, { title: 'dos' }];
+    });
+    Promise.resolve({})
+      .then(() => wrapper.instance().getNewCategory(mockEvent))
+      .then(() => {
+        expect(wrapper.instance().sortMovies).toHaveBeenCalledWith({
+          results: [{ title: 'uno' }, { title: 'dos' }]
+        })
+      })
+      .then(() => {
+        expect(wrapper.instance().setState).toHaveBeenCalledWith({
+          popular: [{ title: 'uno' }, { title: 'dos' }]
+        })
+      })
+      .catch(err => console.log(err.message))
+  })
+
+  it('sortMovies should return movies sorted alphabetically by title', () => {
+    const movies = {
+      results: [{ title: 'Canteberry tales' }, { title: 'before the first' }, { title: 'A first title'}]
+    }
+    const expectedResult = [
+     { title: 'A first title' },
+     { title: 'before the first' },
+     { title: 'Canteberry tales' }
+    ];
+    const result = wrapper.instance().sortMovies(movies);
+    expect(result).toEqual(expectedResult);
+  })
+
+  it('getNewCategory should not call API.getMoviesByCategory if category is already fetched', () => {
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      results: [{ title: 'more popular'}, { title: 'than you'}]
+    }));
+    wrapper.instance().setState({
+      popular: [{ title: 'you\'re a title'}, { title: 'no you are'}]
+    })
+    const mockEvent = {
+      target: {
+        id: 'popular'
+      }
+    };
+    wrapper.instance().getNewCategory(mockEvent);
+    expect(API.getMoviesByCategory).not.toHaveBeenCalled();
   })
   
   it('viewMovie should call API.getMovieDetails', () => {
@@ -102,15 +190,34 @@ describe('App', () => {
     expect(result).toEqual(expectedResult);
   })
 
-  it('componentDidMount should call API.getMoviesByCateogry', () => {
+  it('componentDidMount should call API.getMoviesByCateogry, sortMovies then setState with sortedMovies', () => {
     API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
-      results: []
+      results: [{ title: 'title'}, { title: 'why'}]
     }))
     wrapper = shallow(<App {...mockProps} />, {
       disableLifecycleMethods: false
     });
-    expect(API.getMoviesByCategory).toHaveBeenCalledWith('now_playing');
-
+    wrapper.instance().setState = jest.fn();
+    wrapper.instance().sortMovies = jest.fn().mockImplementation((movies) => {
+      return movies.results
+    })
+    Promise.resolve({})
+      .then(() => {
+        expect(API.getMoviesByCategory).toHaveBeenCalledWith('now_playing')
+      })
+      .then(() => {
+        expect(wrapper.instance().sortMovies).toHaveBeenCalledWith({
+          results: [{ title: 'title' }, { title: 'why' }]
+        })
+      })
+      .then(() => {
+        expect(wrapper.instance().setState).toHaveBeenCalledWith({
+          now_playing: [{ title: 'title' }, { title: 'why' }]
+        })
+      })
+      .then(() => {
+        expect(mockProps.history.push).toHaveBeenCalledWith('/now_playing');
+      })
+      .catch(err => console.log(err.message))
   })
-
 })
