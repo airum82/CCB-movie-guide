@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import 'normalize.css';
 import './App.css';
 
-class App extends Component {
+export class App extends Component {
   constructor() {
     super()
     this.state = {
