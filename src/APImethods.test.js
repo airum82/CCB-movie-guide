@@ -24,4 +24,28 @@ describe('API methods', () => {
         expect(movies).toEqual(expectedResult)
       })
   })
+  it('getMovieDetails should call window.fetch', () => {
+    const movieId = '583'
+    const fakeUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIkey}&language=en-US`;
+    API.getMovieDetails(movieId);
+    expect(window.fetch).toHaveBeenCalledWith(fakeUrl);
+  })
+
+  it('getMovieDetails should return a movie object', () => {
+    const movieId = '583';
+    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve({
+        title: 'the parsening',
+        release_date: 'right about now'
+      })
+    }))
+    const expectedResult = {
+      title: 'the parsening',
+      release_date: 'right about now'
+    }
+    API.getMovieDetails(movieId)
+      .then(movie => {
+        expect(movie).toEqual(expectedResult);
+      })
+  })
 })
