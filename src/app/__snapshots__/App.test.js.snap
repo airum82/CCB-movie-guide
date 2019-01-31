@@ -11,6 +11,11 @@ exports[`App should match snapshot upon render 1`] = `
   <Header
     getNewCategory={[Function]}
     grabSearchTerms={[Function]}
+    location={
+      Object {
+        "pathname": "/",
+      }
+    }
     searchMovies={[Function]}
     searchTerms=""
   />

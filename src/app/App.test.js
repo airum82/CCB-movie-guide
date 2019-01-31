@@ -8,6 +8,9 @@ describe('App', () => {
   const mockProps = {
     history: {
       push: jest.fn()
+    },
+    location: {
+      pathname: '/'
     }
   }
   beforeEach(() => {
@@ -34,7 +37,7 @@ describe('App', () => {
 
   it('searchMovies should call API.getMoviesByCategory and createResults', () => {
     API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
-      json: () => Promise.resolve({})
+      results: [{ title: 'first' }, { title: 'second' }]
     }));
     wrapper.instance().createResults = jest.fn();
     const mockEvent = {
@@ -67,7 +70,7 @@ describe('App', () => {
   //test get new category later
   it('get new category should call API.getMoviesByCategory', () => {
     API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
-      json: () => Promise.resolve({})
+      results: []
     }));
     const mockEvent = {
       target: {
@@ -78,13 +81,32 @@ describe('App', () => {
     expect(API.getMoviesByCategory).toHaveBeenCalledWith(mockEvent.target.id)
   })
   
-  //test viewMovie later
+  it('viewMovie should call API.getMovieDetails', () => {
+    API.getMovieDetails = jest.fn().mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve({})
+    }));
+    const id = '549'
+    wrapper.instance().viewMovie(id);
+    expect(API.getMovieDetails).toHaveBeenCalledWith(id);
+
+  })
 
   it('formatReleaseDate should format the imdb date to american standards', () => {
     const rawDate = '2019-01-15';
     const expectedResult = '01-15-2019';
     const result = wrapper.instance().formatReleaseDate(rawDate);
     expect(result).toEqual(expectedResult);
+  })
+
+  it('componentDidMount should call API.getMoviesByCateogry', () => {
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      results: []
+    }))
+    wrapper = shallow(<App {...mockProps} />, {
+      disableLifecycleMethods: false
+    });
+    expect(API.getMoviesByCategory).toHaveBeenCalledWith('now_playing');
+
   })
 
 })
