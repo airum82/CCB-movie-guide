@@ -24,6 +24,4 @@ export const formatResults = (arr, searchTerms) => {
   }, []);
 };
 
-export const normalize = (str) => {
-  return str.toLowerCase();
-};
+export const normalize = str => str.toLowerCase();
