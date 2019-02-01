@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match snapshot upon render 1`] = `
+<div>
+  <h1
+    className="title"
+    onClick={[Function]}
+  >
+    Ultimate Movie Guide
+  </h1>
+  <Header
+    getNewCategory={[Function]}
+    grabSearchTerms={[Function]}
+    location={
+      Object {
+        "pathname": "/",
+      }
+    }
+    searchMovies={[Function]}
+    searchTerms=""
+  />
+  <Route
+    path="/:category"
+    render={[Function]}
+  />
+</div>
+`;

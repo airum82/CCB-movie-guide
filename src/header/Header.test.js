@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from './Header';
+import Header from './Header';
 import { shallow } from 'enzyme';
 
 describe('Header', () => {
@@ -12,7 +12,7 @@ describe('Header', () => {
     grabSearchTerms: jest.fn(),
     getNewCategory: jest.fn(),
     searchMovies: jest.fn(),
-    searchTerms: jest.fn()
+    searchTerms: 'rob'
   }
   //conditional rendering
   it('renders as expected', () => {
@@ -20,22 +20,40 @@ describe('Header', () => {
     expect(wrapper).toMatchSnapshot();
   })
 
-  it('renders as expected when pathname is /now_playing', () => {
+  it('nowplaying link should have class "currenty-category" when pathname is /now_playing', () => {
     props.location.pathname = '/now_playing';
     wrapper = shallow(<Header {...props} />)
     expect(wrapper.find('#now_playing').hasClass('current-category')).toBe(true);
   })
 
-  it('renders as expected when pathname is /popular', () => {
+  it('nowplaying link should not have class "currenty-category" when pathname is not /now_playing', () => {
+  props.location.pathname = '/'
+  wrapper = shallow(<Header {...props} />)
+  expect(wrapper.find('#now_playing').hasClass('current-category')).toBe(false)
+  })
+
+  it('popular link should have class "current-category" when pathname is /popular', () => {
   props.location.pathname = '/popular'
   wrapper = shallow(<Header {...props} />)
   expect(wrapper.find('#popular').hasClass('current-category')).toBe(true)
   })
 
-  it('renders as expected when pathname is /top_rated', () => {
+  it('popular link should not have class "current-category" when pathname is not /popular', () => {
+    props.location.pathname = '/'
+    wrapper = shallow(<Header {...props} />)
+    expect(wrapper.find('#popular').hasClass('current-category')).toBe(false)
+  })
+
+  it('top_rated link should have class "current-category" when pathname is /top_rated', () => {
   props.location.pathname = '/top_rated'
   wrapper = shallow(<Header {...props} />)
   expect(wrapper.find('#top_rated').hasClass('current-category')).toBe(true)
+  })
+
+  it('top_rated link should not have class "current-category" when pathname is not /top_rated', () => {
+    props.location.pathname = '/'
+    wrapper = shallow(<Header {...props} />)
+    expect(wrapper.find('#top_rated').hasClass('current-category')).toBe(false)
   })
   //calling prop functions
   beforeEach(() => {

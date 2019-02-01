@@ -8,7 +8,6 @@
   text-align: center;
   font-size: 100%;
   height: 7vh;
-  line-height: 3;
 }
 
 .movie img {
@@ -62,6 +61,10 @@
 }
 
 @media only screen and (max-width: 530px) {
+  .movie h2 {
+    line-height: 1.5;
+  }
+  
   .movie-description {
     width: 90%;
   }

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Movie should match snapshot upon render 1`] = `
+<article
+  className="movie"
+  onClick={[Function]}
+>
+  <h2>
+    the fakening
+  </h2>
+  <img
+    src="https://image.tmdb.org/t/p/w500thispath/3445"
+  />
+</article>
+`;
