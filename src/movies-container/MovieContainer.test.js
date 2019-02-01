@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import MovieContainer from './MoviesContainer';
 import { shallow } from 'enzyme';

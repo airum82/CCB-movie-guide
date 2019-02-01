@@ -1,0 +1,19 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-var": "off",
+    "no-console": "off",
+    "no-undef": "warn",
+    "no-param-reassign": "off",
+    "object-curly-newline": "off",
+    "implicit-arrow-linebreak": "off"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb-base"
+  ]
+}
