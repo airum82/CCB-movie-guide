@@ -87,17 +87,12 @@ describe('App', () => {
       now_playing: [{ title: 'Robin' }, { title: 'Batman'}, { title: 'Robinson'}],
       popular: [{ title: 'Parent Trap'}, { title: 'Robbery'}]
     });
-    const mockEvent = {
-      target: {
-        value: 'Rob'
-      }
-    };
     const expectedResult = [
       { title: 'Robin' }, 
       { title: 'Robinson' }, 
       { title: 'Robbery' }
     ]
-    wrapper.instance().grabSearchTerms(mockEvent);
+    wrapper.instance().setState({ searchTerms: 'rob' })
     wrapper.instance().createResults();
     expect(wrapper.state('searchResults')).toEqual(expectedResult);
   })
@@ -144,19 +139,6 @@ describe('App', () => {
       .catch(err => console.log(err.message))
   })
 
-  it('sortMovies should return movies sorted alphabetically by title', () => {
-    const movies = {
-      results: [{ title: 'Canteberry tales' }, { title: 'before the first' }, { title: 'A first title'}]
-    }
-    const expectedResult = [
-     { title: 'A first title' },
-     { title: 'before the first' },
-     { title: 'Canteberry tales' }
-    ];
-    const result = wrapper.instance().sortMovies(movies);
-    expect(result).toEqual(expectedResult);
-  })
-
   it('getNewCategory should not call API.getMoviesByCategory if category is already fetched', () => {
     API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
       results: [{ title: 'more popular'}, { title: 'than you'}]
@@ -181,13 +163,6 @@ describe('App', () => {
     wrapper.instance().viewMovie(id);
     expect(API.getMovieDetails).toHaveBeenCalledWith(id);
 
-  })
-
-  it('formatReleaseDate should format the imdb date to american standards', () => {
-    const rawDate = '2019-01-15';
-    const expectedResult = '01-15-2019';
-    const result = wrapper.instance().formatReleaseDate(rawDate);
-    expect(result).toEqual(expectedResult);
   })
 
   it('componentDidMount should call API.getMoviesByCateogry, sortMovies then setState with sortedMovies', () => {

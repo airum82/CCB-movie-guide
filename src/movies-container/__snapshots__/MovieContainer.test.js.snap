@@ -5,7 +5,6 @@ exports[`MovieContainer should match snapshot upon render 1`] = `
   className="movie-container"
 >
   <Movie
-    formatReleaseDate={[MockFunction]}
     key="0"
     location={
       Object {
@@ -20,7 +19,6 @@ exports[`MovieContainer should match snapshot upon render 1`] = `
     viewMovie={[MockFunction]}
   />
   <Movie
-    formatReleaseDate={[MockFunction]}
     key="1"
     location={
       Object {
