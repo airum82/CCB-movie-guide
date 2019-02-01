@@ -12,17 +12,18 @@ This project is a UI that is set up to interact with The IMDB API. It displays t
 <hr>
 
 ## Tech Stack:
--React
--React-router
--CSS
--React-Loader-Spinner
--Enzyme
--Jest
+- React
+- React-router
+- CSS
+- React-Loader-Spinner
+- Enzyme
+- Jest
 <hr>
 
 ## Next Steps:
--Add in functionality to grab movies from multiply pages in each category
--Allow search by genre if possible
+- Add in functionality to grab movies from multiply pages in each category
+- Allow search by genre if possible
+- Do final configuration for deployment
 <hr>
 
 ## Screenshots:
@@ -36,14 +37,10 @@ This project is a UI that is set up to interact with The IMDB API. It displays t
 <hr>
 
 ## Installation:
-  -clone this repo
-  -cd into it and run ```npm install``
-  -open the .env.example file in the root directory and put in your API key
-  -Rename the .env.example file to .env
-  -```
-    npm start
-  ```
-  -```npm test``` to test files
-  -```npm run lint``` to run eslint
-
-``` npm test ```
+  - clone this repo
+  - cd into it and run ```npm install```
+  - open the .env.example file in the root directory and put in your API key
+  - Rename the .env.example file to .env
+  - ```npm start``` to start in development mode
+  - ```npm test``` to test files
+  - ```npm run lint``` to run eslint
