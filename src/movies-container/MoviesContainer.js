@@ -3,7 +3,7 @@ import Movie from '../movie/Movie';
 import PropTypes from 'prop-types';
 import './movie-container.css'
 
-const MovieContainer = ({ movies, viewMovie, location, formatReleaseDate }) => {
+const MovieContainer = ({ movies, viewMovie, location, formatDate }) => {
   return (
     <section className={ location.pathname.includes('movie') ? 'movie-container-single' : 'movie-container'}>
       { movies.map((movie, i) => (
@@ -12,7 +12,7 @@ const MovieContainer = ({ movies, viewMovie, location, formatReleaseDate }) => {
             movie={movie}
             viewMovie={viewMovie}
             location={location}
-            formatReleaseDate={formatReleaseDate}
+            formatDate={formatDate}
           />
       )) }
     </section>

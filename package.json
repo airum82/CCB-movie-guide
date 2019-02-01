@@ -24,7 +24,8 @@
   "scripts": {
     "start": "webpack-dev-server --open",
     "create": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "prestart": ""
   },
   "author": "Arram Mandel",
   "license": "ISC",

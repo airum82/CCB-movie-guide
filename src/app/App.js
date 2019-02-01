@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../header/Header';
 import MovieContainer from '../movies-container/MoviesContainer';
 import * as API from '../APImethods';
+import * as Utils from '../utils';
 import { Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'normalize.css';
@@ -22,12 +23,11 @@ export class App extends Component {
     this.getNewCategory = this.getNewCategory.bind(this);
     this.searchMovies = this.searchMovies.bind(this);
     this.viewMovie = this.viewMovie.bind(this);
-    this.formatReleaseDate = this.formatReleaseDate.bind(this);
   }
 
   grabSearchTerms(e) {
     this.setState({
-      searchTerms: (e.target.value).toLowerCase()
+      searchTerms: Utils.normalize(e.target.value)
     })
   }
 
@@ -51,27 +51,14 @@ export class App extends Component {
 
   createResults() {
     const { now_playing, popular, top_rated } = this.state;
-    const results = [...now_playing, ...popular, ...top_rated].reduce((results, movie) => {
-      if (movie.title.toLowerCase().includes(this.state.searchTerms)) {
-        const duplicate = results.find(result =>
-          result.title.toLowerCase() === movie.title.toLowerCase())
-        if (!duplicate) results.push(movie);
-      }
-      return results;
-    }, [])
+    const results = Utils.formatResults([
+      ...now_playing,
+      ...popular,
+      ...top_rated
+    ], this.state.searchTerms);
     this.setState({ 
       searchResults: results,
       searchTerms: '' 
-    })
-  }
-
-  sortMovies(movies) {
-    return movies.results.sort((a, b) => {
-      const aTitle = a.title.toUpperCase();
-      const bTitle = b.title.toUpperCase();
-      if (aTitle > bTitle) return 1;
-      if (aTitle < bTitle) return -1;
-      return 0;
     });
   }
 
@@ -80,7 +67,7 @@ export class App extends Component {
     if(!this.state[category].length) {
       API.getMoviesByCategory(category)
         .then(movies => {
-          const sortedMovies = this.sortMovies(movies)
+          const sortedMovies = Utils.sortMovies(movies.results)
           this.setState({ [category]: sortedMovies })
         
         })
@@ -102,15 +89,10 @@ export class App extends Component {
       .catch(err => console.log(err.message))
   }
 
-  formatReleaseDate(date) {
-    const dateArray = date.split('-');
-    return `${dateArray[1]}-${dateArray[2]}-${dateArray[0]}`
-  }
-
   componentDidMount() {
     API.getMoviesByCategory('now_playing')
       .then(movies => {
-        const sortedMovies = this.sortMovies(movies)
+        const sortedMovies = Utils.sortMovies(movies.results)
         this.setState({ now_playing: sortedMovies })
       })
       .then(() => this.props.history.push('/now_playing'))
@@ -138,7 +120,7 @@ export class App extends Component {
               movies={this.state[category]}
               viewMovie={this.viewMovie}
               location={this.props.location}
-              formatReleaseDate={this.formatReleaseDate}
+              formatDate={Utils.formatDate}
             />
           )
         }} />

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
 
-const Movie = ({ movie, formatReleaseDate, viewMovie, location }) => {
+const Movie = ({ movie, formatDate, viewMovie, location }) => {
   const singleView = location.pathname === `/movie/${movie.id}`;
   return (
       <article 
@@ -16,7 +16,7 @@ const Movie = ({ movie, formatReleaseDate, viewMovie, location }) => {
         { singleView ?
           <div className="movie-details">
             <p className="movie-description">{movie.overview}</p>
-            <p className="movie-stats">Release Date: {formatReleaseDate(movie.release_date)}</p>
+            <p className="movie-stats">Release Date: {formatDate(movie.release_date)}</p>
             <p className="movie-stats">Voter Average: {movie.vote_average}</p>
           </div> : ''
         
@@ -27,7 +27,7 @@ const Movie = ({ movie, formatReleaseDate, viewMovie, location }) => {
 
 Movie.propTypes = {
   movie: PropTypes.object,
-  formatReleaseDate: PropTypes.func,
+  formatDate: PropTypes.func,
   viewMovie: PropTypes.func,
   location: PropTypes.object
 }
