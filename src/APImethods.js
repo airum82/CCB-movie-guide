@@ -1,4 +1,3 @@
-import { APIkey } from './APIkey';
 
 export const getMoviesByCategory = category => {
   return fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.APIkey}&language=en-US`)

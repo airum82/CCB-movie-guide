@@ -1,5 +1,4 @@
 import * as API from './APImethods';
-import { APIkey } from './APIkey';
 
 describe('API methods', () => {
   beforeEach(() => {
@@ -11,7 +10,7 @@ describe('API methods', () => {
 
   })
   it('getMoviesByCategory should call fetch', () => {
-    const fakeUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${APIkey}&language=en-US`
+    const fakeUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.APIkey}&language=en-US`
     API.getMoviesByCategory('popular');
     expect(window.fetch).toHaveBeenCalledWith(fakeUrl);
   })
@@ -26,7 +25,7 @@ describe('API methods', () => {
   })
   it('getMovieDetails should call window.fetch', () => {
     const movieId = '583'
-    const fakeUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIkey}&language=en-US`;
+    const fakeUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.APIkey}&language=en-US`;
     API.getMovieDetails(movieId);
     expect(window.fetch).toHaveBeenCalledWith(fakeUrl);
   })
