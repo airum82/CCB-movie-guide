@@ -1,13 +1,12 @@
 import React from 'react';
-import Movie from '../movie/Movie';
 import PropTypes from 'prop-types';
-import './movie-container.css'
+import Movie from '../movie/Movie';
+import './movie-container.css';
 
-const MovieContainer = ({ movies, viewMovie, location, formatDate }) => {
-  return (
+const MovieContainer = ({ movies, viewMovie, location, formatDate }) => (
     <section className={ location.pathname.includes('movie') ? 'movie-container-single' : 'movie-container'}>
       { movies.map((movie, i) => (
-          <Movie 
+          <Movie
             key={i} 
             movie={movie}
             viewMovie={viewMovie}
@@ -16,14 +15,13 @@ const MovieContainer = ({ movies, viewMovie, location, formatDate }) => {
           />
       )) }
     </section>
-  )
-}
+);
 
 MovieContainer.propTypes = {
   movies: PropTypes.array,
   viewMovie: PropTypes.func,
   location: PropTypes.object,
-  formatDate: PropTypes.func
-}
+  formatDate: PropTypes.func,
+};
 
 export default MovieContainer;

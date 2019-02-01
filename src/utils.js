@@ -6,24 +6,24 @@ export const sortMovies = (movies) => {
     if (aTitle < bTitle) return -1;
     return 0;
   });
-}
+};
 
 export const formatDate = (dateStr) => {
   const [year, month, day] = dateStr.split('-');
-  return `${month}-${day}-${year}`
-}
+  return `${month}-${day}-${year}`;
+};
 
 export const formatResults = (arr, searchTerms) => {
   return arr.reduce((results, movie) => {
     if (movie.title.toLowerCase().includes(searchTerms)) {
       const duplicate = results.find(result =>
-        result.title.toLowerCase() === movie.title.toLowerCase())
+        result.title.toLowerCase() === movie.title.toLowerCase());
       if (!duplicate) results.push(movie);
     }
     return results;
-  }, [])
-}
+  }, []);
+};
 
 export const normalize = (str) => {
   return str.toLowerCase();
-}
+};

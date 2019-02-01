@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as API from './APImethods';
 
 describe('API methods', () => {
