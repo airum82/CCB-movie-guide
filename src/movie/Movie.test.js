@@ -13,7 +13,7 @@ describe('Movie', () => {
       vote_average: '10',
       poster_path: 'thispath/3445'
     },
-    formatReleaseDate: jest.fn(),
+    formatDate: jest.fn(),
     viewMovie: jest.fn(),
     location: {
       pathname: '/now_playing'
@@ -39,15 +39,14 @@ describe('Movie', () => {
     expect(wrapper.find('.movie-details').length).toBe(0)
   })
 
-  //prop functions
   it('should call viewMovie with correct params when clicked on', () => {
     wrapper.find('article').simulate('click');
     expect(mockProps.viewMovie).toHaveBeenCalledWith(mockProps.movie.id)
   })
 
-  it('should call formatReleaseDate with correct params on render', () => {
+  it('should call formatDate with correct params on render', () => {
     mockProps.location.pathname = '/movie/583';
     wrapper = shallow(<Movie {...mockProps} />);
-    expect(mockProps.formatReleaseDate).toHaveBeenCalledWith(mockProps.movie.release_date);
+    expect(mockProps.formatDate).toHaveBeenCalledWith(mockProps.movie.release_date);
   })
 })

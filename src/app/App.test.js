@@ -2,6 +2,7 @@ import React from 'react';
 import { App } from './App';
 import { shallow } from 'enzyme';
 import * as API from '../APImethods';
+import * as Utils from '../utils';
 
 describe('App', () => {
   let wrapper;
@@ -97,7 +98,6 @@ describe('App', () => {
     expect(wrapper.state('searchResults')).toEqual(expectedResult);
   })
 
-  //test get new category later
   it('getNewCategory should call API.getMoviesByCategory', () => {
     API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
       results: []
@@ -121,15 +121,15 @@ describe('App', () => {
       }
     };
     wrapper.instance().setState = jest.fn();
-    wrapper.instance().sortMovies = jest.fn().mockImplementation(() => {
+    Utils.sortMovies = jest.fn().mockImplementation(() => {
       return [{ title: 'uno' }, { title: 'dos' }];
     });
     Promise.resolve({})
       .then(() => wrapper.instance().getNewCategory(mockEvent))
       .then(() => {
-        expect(wrapper.instance().sortMovies).toHaveBeenCalledWith({
-          results: [{ title: 'uno' }, { title: 'dos' }]
-        })
+        expect(Utils.sortMovies).toHaveBeenCalledWith(
+          [{ title: 'uno' }, { title: 'dos' }]
+        )
       })
       .then(() => {
         expect(wrapper.instance().setState).toHaveBeenCalledWith({
@@ -173,17 +173,17 @@ describe('App', () => {
       disableLifecycleMethods: false
     });
     wrapper.instance().setState = jest.fn();
-    wrapper.instance().sortMovies = jest.fn().mockImplementation((movies) => {
-      return movies.results
+    Utils.sortMovies = jest.fn().mockImplementation((movies) => {
+      return movies
     })
     Promise.resolve({})
       .then(() => {
         expect(API.getMoviesByCategory).toHaveBeenCalledWith('now_playing')
       })
       .then(() => {
-        expect(wrapper.instance().sortMovies).toHaveBeenCalledWith({
-          results: [{ title: 'title' }, { title: 'why' }]
-        })
+        expect(Utils.sortMovies).toHaveBeenCalledWith(
+          [{ title: 'title' }, { title: 'why' }]
+        )
       })
       .then(() => {
         expect(wrapper.instance().setState).toHaveBeenCalledWith({

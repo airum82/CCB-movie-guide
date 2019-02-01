@@ -23,7 +23,7 @@ MovieContainer.propTypes = {
   movies: PropTypes.array,
   viewMovie: PropTypes.func,
   location: PropTypes.object,
-  formatReleaseDate: PropTypes.func
+  formatDate: PropTypes.func
 }
 
 export default MovieContainer;

@@ -10,7 +10,7 @@ describe('MovieContainer', () => {
     location: {
       pathname: '/now_playing'
     },
-    formatReleaseDate: jest.fn()
+    formatDate: jest.fn()
   }
 
   beforeEach(() => {
