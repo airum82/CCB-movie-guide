@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../header/Header';
 import MovieContainer from '../movies-container/MoviesContainer';
+import Loader from 'react-loader-spinner';
 import * as API from '../APImethods';
 import * as Utils from '../utils';
 import { Route, withRouter } from 'react-router-dom';
@@ -17,7 +18,8 @@ export class App extends Component {
       top_rated: [],
       searchTerms: '',
       searchResults: [],
-      movie: []
+      movie: [],
+      loading: true
     }
     this.grabSearchTerms = this.grabSearchTerms.bind(this);
     this.getNewCategory = this.getNewCategory.bind(this);
@@ -93,7 +95,10 @@ export class App extends Component {
     API.getMoviesByCategory('now_playing')
       .then(movies => {
         const sortedMovies = Utils.sortMovies(movies.results)
-        this.setState({ now_playing: sortedMovies })
+        this.setState({ 
+          now_playing: sortedMovies,
+          loading: false 
+        })
       })
       .then(() => this.props.history.push('/now_playing'))
       .catch(err => console.log(err.message))
@@ -113,17 +118,28 @@ export class App extends Component {
           location={this.props.location}
           searchTerms={this.state.searchTerms}
         />
-        <Route path='/:category' render={({ match }) => {
-          const category = match.params.category;
-          return (
-            <MovieContainer 
-              movies={this.state[category]}
-              viewMovie={this.viewMovie}
-              location={this.props.location}
-              formatDate={Utils.formatDate}
+        { this.state.loading ?
+          <div className="loader"> 
+            <Loader
+              type="Grid"
+              height="100"
+              width="100"
             />
-          )
-        }} />
+          </div>
+        
+          :
+        
+          <Route path='/:category' render={({ match }) => {
+            const category = match.params.category;
+            return (
+              <MovieContainer 
+                movies={this.state[category]}
+                viewMovie={this.viewMovie}
+                location={this.props.location}
+                formatDate={Utils.formatDate}
+              />
+            )
+          }} /> }
       </div>
     )
   }

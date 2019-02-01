@@ -21,3 +21,9 @@ body {
 .title:hover {
   cursor: pointer;
 }
+
+.loader {
+  display: block;
+  margin: 10% auto;
+  text-align: center;
+}
