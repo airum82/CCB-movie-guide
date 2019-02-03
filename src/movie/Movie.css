@@ -5,16 +5,16 @@
 }
 
 .movie h2 {
-  text-align: center;
   font-size: 100%;
   height: 7vh;
+  text-align: center;
 }
 
 .movie img {
-  height: 50vh;
   display: block;
-  margin: 0 auto;
+  height: 50vh;
   margin-bottom: 4%;
+  margin: 0 auto;
 }
 
 .movie:hover {
@@ -35,14 +35,14 @@
 
 .movie-no-photo {
   background-color: var(--color2);
-  text-align: center;
   line-height: 2;
   margin-top: 25%;
+  text-align: center;
 }
 
 .movie-description {
-  width: 65%;
   margin: 0 auto;
+  width: 65%;
 }
 
 .movie-stats {
@@ -57,9 +57,9 @@
 
 @media only screen and (max-width: 450px) {
   .movie {
-    width: 90%;
-    margin: 0 auto;
     height: 83%;
+    margin: 0 auto;
+    width: 90%;
   }
 
   .movie img {

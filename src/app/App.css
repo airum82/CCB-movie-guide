@@ -29,10 +29,10 @@ body {
 }
 
 .load-more {
-  border: none;
   background-color: var(--color4);
+  border: none;
+  cursor: pointer;
   display: block;
   margin: 3% auto;
   padding: 2%;
-  cursor: pointer;
 }
