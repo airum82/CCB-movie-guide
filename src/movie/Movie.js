@@ -12,7 +12,10 @@ const Movie = ({ movie, formatDate, viewMovie, location }) => {
         }}
       >
         <h2>{movie.title}</h2>
-        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+        { movie.poster_path
+          ? <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+          : !singleView ? <div className="movie-no-photo">No Poster Available</div> : ''
+        }
         { singleView
           ? <div className="movie-details">
             <p className="movie-description">{movie.overview}</p>

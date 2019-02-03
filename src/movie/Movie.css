@@ -33,6 +33,13 @@
   margin: 2% auto;
 }
 
+.movie-no-photo {
+  background-color: var(--color2);
+  text-align: center;
+  line-height: 2;
+  margin-top: 25%;
+}
+
 .movie-description {
   width: 65%;
   margin: 0 auto;

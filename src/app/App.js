@@ -9,6 +9,10 @@ import PropTypes from 'prop-types';
 import 'normalize.css';
 import './App.css';
 
+let now_playingPages = 2;
+let popularPages = 2;
+let top_ratedPages = 2;
+
 export class App extends Component {
   constructor() {
     super()
@@ -19,12 +23,13 @@ export class App extends Component {
       searchTerms: '',
       searchResults: [],
       movie: [],
-      loading: true
+      loading: true,
     }
     this.grabSearchTerms = this.grabSearchTerms.bind(this);
     this.getNewCategory = this.getNewCategory.bind(this);
     this.searchMovies = this.searchMovies.bind(this);
     this.viewMovie = this.viewMovie.bind(this);
+    this.grabMoreMovies = this.grabMoreMovies.bind(this);
   }
 
   grabSearchTerms(e) {
@@ -91,6 +96,27 @@ export class App extends Component {
       .catch(err => console.log(err.message))
   }
 
+  grabMoreMovies() {
+    let categoryArr = this.props.location.pathname.split('');
+    categoryArr.shift();
+    const category = categoryArr.join('');
+    let page;
+    if(category === 'now_playing') page = now_playingPages;
+    if(category === 'top_rated') page = top_ratedPages;
+    if(category === 'popular') page = popularPages;
+    API.getMoviesByCategory(category, page)
+      .then(movies => Utils.sortMovies(movies.results))
+      .then(sortedMovies => this.setState({
+        [category]: [...this.state[category],...sortedMovies]
+      }))
+      .then(() => {
+        if (category === 'now_playing') now_playingPages++;
+        if (category === 'top_rated') top_ratedPages++;
+        if (category === 'popular') popularPages++;
+      })
+      .catch(err => console.log(err.message))
+  }
+
   componentDidMount() {
     API.getMoviesByCategory('now_playing')
       .then(movies => {
@@ -140,6 +166,15 @@ export class App extends Component {
               />
             )
           }} /> }
+          { !this.props.location.pathname.includes('movie')
+            ?
+          <button
+            className="load-more"
+            onClick={this.grabMoreMovies}
+          >
+            Load More
+          </button> : ''
+          }
       </div>
     )
   }
