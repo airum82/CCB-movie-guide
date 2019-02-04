@@ -19,9 +19,21 @@ exports[`App should match snapshot upon render 1`] = `
     searchMovies={[Function]}
     searchTerms=""
   />
-  <Route
-    path="/:category"
-    render={[Function]}
-  />
+  <div
+    className="loader"
+  >
+    <Loader
+      color="#71238"
+      height="100"
+      type="Grid"
+      width="100"
+    />
+  </div>
+  <button
+    className="load-more"
+    onClick={[Function]}
+  >
+    Load More
+  </button>
 </div>
 `;
