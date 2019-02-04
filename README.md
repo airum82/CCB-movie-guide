@@ -21,7 +21,6 @@ This project is a UI that is set up to interact with The Movie Db API. It displa
 <hr>
 
 ## Next Steps:
-- Add in functionality to grab movies from multiply pages in each category
 - Allow search by genre if possible
 - Do final configuration for deployment
 <hr>
