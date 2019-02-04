@@ -1,8 +1,8 @@
 .header {
-  width: 100%;
+  background-color: var(--color4);
   height: 13vh;
   margin: 2% 0;
-  background-color: var(--color4);
+  width: 100%;
 }
 
 .header * {
@@ -10,16 +10,16 @@
 }
 
 .header-nav {
-  width: 36%;
   margin: 2%;
+  width: 36%;
 
 }
 
 .header-nav * {
-  display: inline-block;
-  text-decoration: none;
   color: black;
+  display: inline-block;
   margin: 2%;
+  text-decoration: none;
 }
 
 .header-nav *:hover {
@@ -28,9 +28,9 @@
 
 .header-search {
   display: flex;
-  text-align: right;
   float: right;
   margin: 2%;
+  text-align: right;
 }
 
 .header-search * {
@@ -38,8 +38,8 @@
 }
 
 .header-search button {
+  background-color: var(--color3);
   border: none;
-  background-color: var(--color3)
 }
 
 .current-category {
@@ -69,9 +69,9 @@
   .header-search {
     display: flex;
     float: none;
-    width: 100%;
     justify-content: center;
     margin: 2% auto;
+    width: 100%;
   }
 }
 

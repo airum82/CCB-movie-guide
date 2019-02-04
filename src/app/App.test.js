@@ -121,9 +121,8 @@ describe('App', () => {
         id: 'popular'
       }
     };
-    wrapper.instance().setState = jest.fn();
-    Utils.sortMovies = jest.fn().mockImplementation(() => {
-      return [{ title: 'uno' }, { title: 'dos' }];
+    Utils.sortMovies = jest.fn().mockImplementation((movies) => {
+      return movies
     });
     Promise.resolve({})
       .then(() => wrapper.instance().getNewCategory(mockEvent))
@@ -133,9 +132,9 @@ describe('App', () => {
         )
       })
       .then(() => {
-        expect(wrapper.instance().setState).toHaveBeenCalledWith({
-          popular: [{ title: 'uno' }, { title: 'dos' }]
-        })
+        expect(wrapper.state('popular')).toEqual(
+          [{ title: 'uno' }, { title: 'dos' }]
+        )
       })
       .catch(err => console.log(err.message))
   })
@@ -158,11 +157,36 @@ describe('App', () => {
   
   it('viewMovie should call API.getMovieDetails', () => {
     API.getMovieDetails = jest.fn().mockImplementation(() => Promise.resolve({
-      json: () => Promise.resolve({})
+      title: 'water',
+      description: 'some water'
     }));
     const id = '549'
     wrapper.instance().viewMovie(id);
     expect(API.getMovieDetails).toHaveBeenCalledWith(id);
+
+  })
+
+  it('grabMoreMovies should call getMoviesByCategory, then setState with sorted movies', () => {
+    mockProps.location.pathname = '/now_playing';
+    API.getMoviesByCategory = jest.fn().mockImplementation(() => Promise.resolve({
+      results: [{ title: 'title' }, { title: 'why' }, { title: 'there\'s more'}]
+    }));
+    wrapper = shallow(<App {...mockProps} />,{
+      disableLifecycleMethods: true
+    })
+    wrapper.instance().grabMoreMovies();
+    Promise.resolve({})
+      .then(() => {
+        expect(API.getMoviesByCategory).toHaveBeenCalledWith('now_playing', 2);
+      })
+      .then(() => {
+        expect(wrapper.state('now_playing')).toEqual([
+          { title: 'title' }, 
+          { title: 'why' }, 
+          { title: 'there\'s more' }
+        ])
+      })
+      .catch(err => console.log(err.message))
 
   })
 
@@ -188,6 +212,7 @@ describe('App', () => {
       })
       .then(() => {
         expect(wrapper.instance().setState).toHaveBeenCalledWith({
+          loading: false,
           now_playing: [{ title: 'title' }, { title: 'why' }]
         })
       })

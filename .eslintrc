@@ -9,7 +9,8 @@
     "no-undef": "warn",
     "no-param-reassign": "off",
     "object-curly-newline": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "no-nested-ternary": "off"
   },
   "extends": [
     "eslint:recommended",

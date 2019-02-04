@@ -1,8 +1,11 @@
 /* eslint-disable */
+require('dotenv').config();
 import * as API from './APImethods';
 
 describe('API methods', () => {
+  let APIkey;
   beforeEach(() => {
+    APIkey = process.env.APIkey;
     window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
       json: () => Promise.resolve({
         results: [{ title: 'a movie'}, { title: 'another one'}]
@@ -11,7 +14,7 @@ describe('API methods', () => {
 
   })
   it('getMoviesByCategory should call fetch', () => {
-    const fakeUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.APIkey}&language=en-US`
+    const fakeUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${APIkey}&language=en-US&page=1`
     API.getMoviesByCategory('popular');
     expect(window.fetch).toHaveBeenCalledWith(fakeUrl);
   })
@@ -26,7 +29,7 @@ describe('API methods', () => {
   })
   it('getMovieDetails should call window.fetch', () => {
     const movieId = '583'
-    const fakeUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.APIkey}&language=en-US`;
+    const fakeUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIkey}&language=en-US`;
     API.getMovieDetails(movieId);
     expect(window.fetch).toHaveBeenCalledWith(fakeUrl);
   })

@@ -27,3 +27,12 @@ body {
   margin: 10% auto;
   text-align: center;
 }
+
+.load-more {
+  background-color: var(--color4);
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 3% auto;
+  padding: 2%;
+}

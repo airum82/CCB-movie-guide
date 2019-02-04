@@ -7,7 +7,7 @@ const MovieContainer = ({ movies, viewMovie, location, formatDate }) => (
     <section className={ location.pathname.includes('movie') ? 'movie-container-single' : 'movie-container'}>
       { movies.map((movie, i) => (
           <Movie
-            key={i} 
+            key={i}
             movie={movie}
             viewMovie={viewMovie}
             location={location}
