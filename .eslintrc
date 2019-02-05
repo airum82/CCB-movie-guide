@@ -10,7 +10,9 @@
     "no-param-reassign": "off",
     "object-curly-newline": "off",
     "implicit-arrow-linebreak": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "camelcase": "off",
+    "no-plusplus": "off"
   },
   "extends": [
     "eslint:recommended",

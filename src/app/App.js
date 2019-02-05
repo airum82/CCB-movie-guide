@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Route, withRouter } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import Header from '../header/Header';
 import MovieContainer from '../movies-container/MoviesContainer';
-import Loader from 'react-loader-spinner';
 import * as API from '../APImethods';
 import * as Utils from '../utils';
-import { Route, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import 'normalize.css';
 import './App.css';
 
@@ -15,7 +15,7 @@ let top_ratedPages = 2;
 
 export class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       now_playing: [],
       popular: [],
@@ -50,10 +50,10 @@ export class App extends Component {
             }
           }).catch(err => console.log(err.message))
       } else if(i === cats.length - 1) {
-          this.createResults();
+        this.createResults();
       }
-    })
-    this.props.history.push('/searchResults')
+    });
+    this.props.history.push('/searchResults');
   }
 
   createResults() {
@@ -61,22 +61,21 @@ export class App extends Component {
     const results = Utils.formatResults([
       ...now_playing,
       ...popular,
-      ...top_rated
+      ...top_rated,
     ], this.state.searchTerms);
-    this.setState({ 
+    this.setState({
       searchResults: results,
-      searchTerms: '' 
+      searchTerms: '',
     });
   }
 
   getNewCategory(e) {
     const category = e.target.id;
-    if(!this.state[category].length) {
+    if (!this.state[category].length) {
       API.getMoviesByCategory(category)
-        .then(movies => {
-          const sortedMovies = Utils.sortMovies(movies.results)
-          this.setState({ [category]: sortedMovies })
-        
+        .then((movies) => {
+          const sortedMovies = Utils.sortMovies(movies.results);
+          this.setState({ [category]: sortedMovies });
         })
         .catch(err => console.log(err.message))
     }
@@ -84,26 +83,26 @@ export class App extends Component {
 
   viewMovie(id) {
     API.getMovieDetails(id)
-      .then(movie => {
+      .then((movie) => {
         this.setState({ movie: [movie] });
         return movie;
       })
-      .then(movie => {
-        if(this.props.location.pathname !== `/movie/${movie.id}`) {
+      .then((movie) => {
+        if (this.props.location.pathname !== `/movie/${movie.id}`) {
           this.props.history.push(`/movie/${movie.id}`)
         }
       })
-      .catch(err => console.log(err.message))
+      .catch(err => console.log(err.message));
   }
 
   grabMoreMovies() {
-    let categoryArr = this.props.location.pathname.split('');
+    const categoryArr = this.props.location.pathname.split('');
     categoryArr.shift();
     const category = categoryArr.join('');
     let page;
-    if(category === 'now_playing') page = now_playingPages;
-    if(category === 'top_rated') page = top_ratedPages;
-    if(category === 'popular') page = popularPages;
+    if (category === 'now_playing') page = now_playingPages;
+    if (category === 'top_rated') page = top_ratedPages;
+    if (category === 'popular') page = popularPages;
     API.getMoviesByCategory(category, page)
       .then(movies => Utils.sortMovies(movies.results))
       .then(sortedMovies => this.setState({
@@ -119,12 +118,12 @@ export class App extends Component {
 
   componentDidMount() {
     API.getMoviesByCategory('now_playing')
-      .then(movies => {
+      .then((movies) => {
         const sortedMovies = Utils.sortMovies(movies.results)
-        this.setState({ 
+        this.setState({
           now_playing: sortedMovies,
-          loading: false 
-        })
+          loading: false,
+        });
       })
       .then(() => this.props.history.push('/now_playing'))
       .catch(err => console.log(err.message))
@@ -133,42 +132,39 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <h1 
+        <h1
           className="title"
           onClick={() => this.props.history.push('/now_playing')}
         >Ultimate Movie Guide</h1>
-        <Header 
-          grabSearchTerms={this.grabSearchTerms} 
+        <Header
+          grabSearchTerms={this.grabSearchTerms}
           getNewCategory={this.getNewCategory}
           searchMovies={this.searchMovies}
           location={this.props.location}
           searchTerms={this.state.searchTerms}
         />
-        { this.state.loading ?
-          <div className="loader"> 
+        { this.state.loading
+          ? <div className="loader">
             <Loader
               type="Grid"
               height="100"
               width="100"
             />
           </div>
-        
-          :
-        
-          <Route path='/:category' render={({ match }) => {
-            const category = match.params.category;
+
+          : <Route path='/:category' render={({ match }) => {
+            const { category } = match.params;
             return (
-              <MovieContainer 
+              <MovieContainer
                 movies={this.state[category]}
                 viewMovie={this.viewMovie}
                 location={this.props.location}
                 formatDate={Utils.formatDate}
               />
-            )
+            );
           }} /> }
           { !this.props.location.pathname.includes('movie')
-            ?
-          <button
+            ? <button
             className="load-more"
             onClick={this.grabMoreMovies}
           >
@@ -176,14 +172,14 @@ export class App extends Component {
           </button> : ''
           }
       </div>
-    )
+    );
   }
 }
 
 App.propTypes = {
   location: PropTypes.object,
   history: PropTypes.object,
-  match: PropTypes.object
-}
+  match: PropTypes.object,
+};
 
 export default withRouter(App);

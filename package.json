@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "create": "webpack",
+    "create": "webpack -p",
     "test": "jest",
     "lint": "eslint src/**/*.js"
   },
