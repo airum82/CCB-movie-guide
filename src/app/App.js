@@ -24,7 +24,7 @@ export class App extends Component {
       searchResults: [],
       movie: [],
       loading: true,
-    }
+    };
     this.grabSearchTerms = this.grabSearchTerms.bind(this);
     this.getNewCategory = this.getNewCategory.bind(this);
     this.searchMovies = this.searchMovies.bind(this);
@@ -35,7 +35,7 @@ export class App extends Component {
   grabSearchTerms(e) {
     this.setState({
       searchTerms: Utils.normalize(e.target.value)
-    })
+    });
   }
 
   searchMovies(event) {
@@ -45,11 +45,11 @@ export class App extends Component {
         API.getMoviesByCategory(category)
           .then(movies => this.setState({ [category]: movies.results }))
           .then(() => {
-            if(i === cats.length - 1) {
+            if (i === cats.length - 1) {
               this.createResults();
             }
-          }).catch(err => console.log(err.message))
-      } else if(i === cats.length - 1) {
+          }).catch(err => console.log(err.message));
+      } else if (i === cats.length - 1) {
         this.createResults();
       }
     });
@@ -77,7 +77,7 @@ export class App extends Component {
           const sortedMovies = Utils.sortMovies(movies.results);
           this.setState({ [category]: sortedMovies });
         })
-        .catch(err => console.log(err.message))
+        .catch(err => console.log(err.message));
     }
   }
 
@@ -89,7 +89,7 @@ export class App extends Component {
       })
       .then((movie) => {
         if (this.props.location.pathname !== `/movie/${movie.id}`) {
-          this.props.history.push(`/movie/${movie.id}`)
+          this.props.history.push(`/movie/${movie.id}`);
         }
       })
       .catch(err => console.log(err.message));
@@ -106,7 +106,7 @@ export class App extends Component {
     API.getMoviesByCategory(category, page)
       .then(movies => Utils.sortMovies(movies.results))
       .then(sortedMovies => this.setState({
-        [category]: [...this.state[category],...sortedMovies]
+        [category]: [...this.state[category], ...sortedMovies],
       }))
       .then(() => {
         if (category === 'now_playing') now_playingPages++;
@@ -119,14 +119,14 @@ export class App extends Component {
   componentDidMount() {
     API.getMoviesByCategory('now_playing')
       .then((movies) => {
-        const sortedMovies = Utils.sortMovies(movies.results)
+        const sortedMovies = Utils.sortMovies(movies.results);
         this.setState({
           now_playing: sortedMovies,
           loading: false,
         });
       })
       .then(() => this.props.history.push('/now_playing'))
-      .catch(err => console.log(err.message))
+      .catch(err => console.log(err.message));
   }
 
   render() {
